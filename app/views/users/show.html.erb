@@ -9,3 +9,26 @@
     </section>
   </aside>
 </div>
+
+<ul class="users">
+  <% @skills.each do |skill| %>
+    <li>
+      <%= link_to skill.name, skill %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@skill) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= hidden_field_tag 'user_id', @user.id %>
+
+      <%= f.submit "Add new skill", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
