@@ -1,0 +1,15 @@
+<% provide(:title, @skill.name) %>
+<h1><%= @skill.name %></h1>
+
+<%= will_paginate @skill_users, :renderer => BootstrapPagination::Rails %>
+
+<ul class="users">
+  <% @skill_users.each do |user| %>
+    <li>
+      <%= gravatar_for user %>
+      <%= link_to user.name, user %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @skill_users, :renderer => BootstrapPagination::Rails %>
