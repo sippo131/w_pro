@@ -1,4 +1,5 @@
 class SkillsController < ApplicationController
+  autocomplete :skill, :name, :full => true
 
   def index
     @skills = Skill.paginate(page: params[:page],per_page: 20)
