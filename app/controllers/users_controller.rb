@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @skills = @user.skills.all
     @skill = Skill.new
+    @userskill = UserSkill.new
   end
 
   def create

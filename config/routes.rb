@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :skills do
     get :autocomplete_skill_name, on: :collection
   end
+  resources :user_skills
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

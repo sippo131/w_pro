@@ -14,6 +14,11 @@
   <% @skills.each do |skill| %>
     <li>
       <%= link_to skill.name, skill %>
+      <%= form_for @userskill do |f| %>
+        <%= render 'shared/error_messages' %>
+        <%= hidden_field_tag 'skill_id', skill.id %>
+        <%= f.submit "+1", class: "btn btn-primary" %>
+      <% end %>
     </li>
   <% end %>
 </ul>
@@ -22,9 +27,6 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_for @skill do |f| %>
       <%= render 'shared/error_messages' %>
-
-      <!-- <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %> -->
 
       <%= f.autocomplete_field :name, autocomplete_skill_name_skills_path %>
 
