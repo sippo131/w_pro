@@ -12,7 +12,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @skills = @user.skills.all
+
+    @userskills = UserSkill.where(user_id: params[:id])
+    uniq_skill_id_array  = @userskills.group(:skill_id).pluck(:skill_id)
+
+    @skill_count_hash = {}
+    uniq_skill_id_array.each do |skill_id|
+      @skill_count_hash[skill_id] = @userskills.where(skill_id: skill_id).size
+    end
+
+    @skill_count_array = @skill_count_hash.sort {|(k1, v1), (k2, v2)| v2 <=> v1}
+
     @skill = Skill.new
     @userskill = UserSkill.new
   end
@@ -59,6 +69,10 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     uredirect_to(root_url) unless current_user?(@user)
+  end
+
+  def skill_1_count
+    @userskill
   end
 
 end
