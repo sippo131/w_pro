@@ -17,24 +17,25 @@
     <% counter += 1 %>
     <li>
       <% skill = Skill.find(array[0]) %>
-      <%= array[1]-1 %>
-      <%= link_to skill.name, skill %>
-
-      <% if counter <= 6 %>
-        <% add_one_users(skill.id,@user.id).each do |added_user| %>
-          <%= link_to gravatar_for(added_user),added_user %>
-        <% end %>
-      <% end %>
-
+      <!-- +１をするためのフォーム -->
       <% unless @user.id == current_user.id %>
         <%= form_for @userskill do |f| %>
           <%= render 'shared/error_messages' %>
           <%= hidden_field_tag 'skill_id', skill.id %>
           <%= hidden_field_tag 'user_id', @user.id %>
-          <%= f.submit "+1", class: "btn btn-primary" %>
+          <%= f.submit "+1", class: "btn btn-primary add-one" %>
         <% end %>
       <% end %>
 
+      <%= array[1]-1 %>
+      <%= link_to skill.name, skill %>
+
+      <!-- +1をしたユーザーの画像表示 -->
+      <% if counter <= 6 %>
+        <% add_one_users(skill.id,@user.id).each do |added_user| %>
+          <%= link_to gravatar_for(added_user),added_user %>
+        <% end %>
+      <% end %>
     </li>
   <% end %>
 </ul>

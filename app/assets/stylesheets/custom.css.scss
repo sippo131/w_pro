@@ -144,6 +144,8 @@ aside {
 .gravatar {
   float: left;
   margin-right: 10px;
+  width: 30px;
+  height: 30px;
 }
 
 .gravatar_edit {
@@ -192,6 +194,11 @@ input {
   margin-left: 0;
 }
 
+.add-one {
+  width: 40px;
+  height: 30px;
+}
+
 /* Users index */
 
 .users {
@@ -201,5 +208,12 @@ input {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
+    padding-left: 30px;
+    .gravatar {
+      float: right;
+    }
+    a {
+      padding-left: 30px
+    }
   }
 }
