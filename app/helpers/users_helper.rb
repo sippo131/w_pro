@@ -23,4 +23,14 @@ module UsersHelper
     tagged_user_array.take(10)
   end
 
+  def skill_hidden?(skill_id)
+    hide_skill = Hide.where(user_id: current_user.id).where(hide_skill_id: skill_id)
+
+    if hide_skill.size == 0
+      return false
+    else
+      return true
+    end
+  end
+
 end

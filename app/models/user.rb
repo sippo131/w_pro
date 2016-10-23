@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :user_skills
+  has_many :hides
   has_many :skills, through: :user_skills
   attr_accessor :remember_token
   before_save {self.email = email.downcase}

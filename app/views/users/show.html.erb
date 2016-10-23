@@ -15,27 +15,42 @@
   <!-- 上位6人まで、追加したユーザーを表示する上でのカウンター -->
   <% @skill_count_array.each do |array| %>
     <% counter += 1 %>
+    <!-- ユーザーのHideが存在すれば、NEXTを実施 -->
+    <% unless @user.id == current_user.id %>
+      <% next if Hide.find_by(user_id: @user.id, hide_skill_id: array[0]) %>
+    <% end %>
+    
     <li>
       <% skill = Skill.find(array[0]) %>
-      <!-- +１をするためのフォーム -->
+      <%= array[1]-1 %>
+      <%= link_to skill.name, skill %>
+
       <% unless @user.id == current_user.id %>
+        <!-- +１をするためのフォーム -->
         <%= form_for @userskill do |f| %>
           <%= render 'shared/error_messages' %>
           <%= hidden_field_tag 'skill_id', skill.id %>
           <%= hidden_field_tag 'user_id', @user.id %>
           <%= f.submit "+1", class: "btn btn-primary add-one" %>
         <% end %>
+      <% else %>
+        <% if skill_hidden?(array[0]) %>
+            <p>now this skill is hidden</p>
+        <% end %>
+
+        <!-- スキル隠す-->
+        <%= link_to "hide", hide_path(skill_id: skill.id) %>
+        <!-- スキル削除フォーム -->
+        <%= link_to "delete", delete_path(skill_id: skill.id), data: {confirm: "本当に削除しますか"} %>
+      <!-- +1をしたユーザーの画像表示 -->
       <% end %>
 
-      <%= array[1]-1 %>
-      <%= link_to skill.name, skill %>
-
-      <!-- +1をしたユーザーの画像表示 -->
       <% if counter <= 6 %>
         <% add_one_users(skill.id,@user.id).each do |added_user| %>
           <%= link_to gravatar_for(added_user),added_user %>
         <% end %>
       <% end %>
+
     </li>
   <% end %>
 </ul>

@@ -41,6 +41,23 @@ class SkillsController < ApplicationController
     end
   end
 
+  def hide
+    @hide_skill = Hide.find_by(user_id: current_user.id, hide_skill_id: params[:skill_id])
+
+    if @hide_skill.nil?
+      Hide.create(user_id: current_user.id, hide_skill_id: params[:skill_id])
+      redirect_to current_user
+    else
+      @hide_skill.destroy
+      redirect_to current_user
+    end
+  end
+
+  def delete
+    UserSkill.where(user_id: current_user.id).where(skill_id: params[:skill_id]).destroy_all
+    redirect_to current_user
+  end
+
   private
 
   def logged_in_user

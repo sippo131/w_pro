@@ -5,6 +5,9 @@
 
 <ul class="users">
   <% @skill_users.each do |user| %>
+    <!-- ユーザーのHideが存在すれば、NEXTを実施 -->
+    <% next if Hide.find_by(user_id: user.id, hide_skill_id: @skill.id) %>
+
     <li>
       <%= gravatar_for user %>
       <%= link_to user.name, user %>
