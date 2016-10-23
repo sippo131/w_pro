@@ -8,6 +8,7 @@ class UserSkillsController < ApplicationController
       UserSkill.create(user_id: params[:user_id], skill_id: params[:skill_id], tagged_user_id: current_user.id)
       redirect_to @user
     else
+
       @userskill.destroy
       redirect_to @user
     end
