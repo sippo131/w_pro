@@ -11,11 +11,21 @@
 </div>
 
 <ul class="users">
+  <% counter = 0 %>
+  <!-- 上位6人まで、追加したユーザーを表示する上でのカウンター -->
   <% @skill_count_array.each do |array| %>
+    <% counter += 1 %>
     <li>
       <% skill = Skill.find(array[0]) %>
       <%= array[1]-1 %>
       <%= link_to skill.name, skill %>
+
+      <% if counter <= 6 %>
+        <% add_one_users(skill.id,@user.id).each do |added_user| %>
+          <%= link_to gravatar_for(added_user),added_user %>
+        <% end %>
+      <% end %>
+
       <% unless @user.id == current_user.id %>
         <%= form_for @userskill do |f| %>
           <%= render 'shared/error_messages' %>
@@ -24,6 +34,7 @@
           <%= f.submit "+1", class: "btn btn-primary" %>
         <% end %>
       <% end %>
+
     </li>
   <% end %>
 </ul>
